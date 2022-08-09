@@ -1,0 +1,2121 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 272,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 21,
+      "panels": [],
+      "title": "Pipeline-Performance",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "000000014"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 1
+      },
+      "id": 2,
+      "interval": "5m",
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "right"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "Input",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "000000014"
+          },
+          "dimensions": {
+            "component_id": "input_tppp",
+            "component_kind": "source",
+            "component_name": "*",
+            "component_type": "fluent",
+            "host": "*",
+            "pid": "*"
+          },
+          "expression": "",
+          "id": "",
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "component_received_events_total",
+          "metricQueryType": 1,
+          "namespace": "tppp_v1",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "Input",
+          "region": "default",
+          "sql": {
+            "from": {
+              "property": {
+                "name": "tppp_v1",
+                "type": "string"
+              },
+              "type": "property"
+            },
+            "select": {
+              "name": "SUM",
+              "parameters": [
+                {
+                  "name": "component_received_events_total",
+                  "type": "functionParameter"
+                }
+              ],
+              "type": "function"
+            },
+            "where": {
+              "expressions": [
+                {
+                  "operator": {
+                    "name": "=",
+                    "value": "input_tppp"
+                  },
+                  "property": {
+                    "name": "component_id",
+                    "type": "string"
+                  },
+                  "type": "operator"
+                },
+                {
+                  "operator": {
+                    "name": "=",
+                    "value": "source"
+                  },
+                  "property": {
+                    "name": "component_kind",
+                    "type": "string"
+                  },
+                  "type": "operator"
+                }
+              ],
+              "type": "and"
+            }
+          },
+          "sqlExpression": "SELECT SUM(component_received_events_total) FROM tppp_v1 WHERE component_id = 'input_tppp' AND component_kind = 'source'",
+          "statistic": "Sum"
+        },
+        {
+          "alias": "Output-ES",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "000000014"
+          },
+          "dimensions": {
+            "component_id": "es_out_livelogs",
+            "component_kind": "*",
+            "component_name": "*",
+            "component_type": "*",
+            "host": "*",
+            "pid": "*"
+          },
+          "expression": "",
+          "hide": false,
+          "id": "",
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "component_received_events_total",
+          "metricQueryType": 1,
+          "namespace": "tppp_v1",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "Output_ES",
+          "region": "default",
+          "sql": {
+            "from": {
+              "property": {
+                "name": "tppp_v1",
+                "type": "string"
+              },
+              "type": "property"
+            },
+            "select": {
+              "name": "SUM",
+              "parameters": [
+                {
+                  "name": "component_sent_events_total",
+                  "type": "functionParameter"
+                }
+              ],
+              "type": "function"
+            },
+            "where": {
+              "expressions": [
+                {
+                  "operator": {
+                    "name": "=",
+                    "value": "es_out_livelogs"
+                  },
+                  "property": {
+                    "name": "component_id",
+                    "type": "string"
+                  },
+                  "type": "operator"
+                },
+                {
+                  "operator": {
+                    "name": "=",
+                    "value": "sink"
+                  },
+                  "property": {
+                    "name": "component_kind",
+                    "type": "string"
+                  },
+                  "type": "operator"
+                }
+              ],
+              "type": "and"
+            }
+          },
+          "sqlExpression": "SELECT SUM(component_sent_events_total) FROM tppp_v1 WHERE component_id = 'es_out_livelogs' AND component_kind = 'sink'",
+          "statistic": "Sum"
+        },
+        {
+          "datasource": {
+            "type": "__expr__",
+            "uid": "-100"
+          },
+          "expression": "$Input - $Output_ES",
+          "hide": false,
+          "refId": "Reduction",
+          "type": "math"
+        }
+      ],
+      "title": "Reduction - Input vs. ES-Output",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "000000014"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 1
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "right"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "000000014"
+          },
+          "dimensions": {
+            "component_id": "tf_sdfs_match_p1",
+            "component_kind": "*",
+            "component_name": "*",
+            "component_type": "filter",
+            "host": "*",
+            "pid": "*"
+          },
+          "expression": "",
+          "hide": true,
+          "id": "",
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "component_received_events_total",
+          "metricQueryType": 1,
+          "namespace": "tppp_v1",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "inputPattern1",
+          "region": "default",
+          "sql": {
+            "from": {
+              "property": {
+                "name": "tppp_v1",
+                "type": "string"
+              },
+              "type": "property"
+            },
+            "select": {
+              "name": "SUM",
+              "parameters": [
+                {
+                  "name": "component_received_events_total",
+                  "type": "functionParameter"
+                }
+              ],
+              "type": "function"
+            },
+            "where": {
+              "expressions": [
+                {
+                  "operator": {
+                    "name": "=",
+                    "value": "tf_sdfs_match_p1"
+                  },
+                  "property": {
+                    "name": "component_id",
+                    "type": "string"
+                  },
+                  "type": "operator"
+                }
+              ],
+              "type": "and"
+            }
+          },
+          "sqlExpression": "SELECT SUM(component_received_events_total) FROM tppp_v1 WHERE component_id = 'tf_sdfs_match_p1'",
+          "statistic": "Sum"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "000000014"
+          },
+          "dimensions": {
+            "component_id": "tf_sdfs_match_p1",
+            "component_kind": "*",
+            "component_name": "*",
+            "component_type": "filter",
+            "host": "*",
+            "output": "*",
+            "pid": "*"
+          },
+          "expression": "",
+          "hide": true,
+          "id": "",
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "component_sent_events_total",
+          "metricQueryType": 1,
+          "namespace": "tppp_v1",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "outputPattern1",
+          "region": "default",
+          "sql": {
+            "from": {
+              "property": {
+                "name": "tppp_v1",
+                "type": "string"
+              },
+              "type": "property"
+            },
+            "select": {
+              "name": "SUM",
+              "parameters": [
+                {
+                  "name": "component_sent_events_total",
+                  "type": "functionParameter"
+                }
+              ],
+              "type": "function"
+            },
+            "where": {
+              "expressions": [
+                {
+                  "operator": {
+                    "name": "=",
+                    "value": "tf_sdfs_match_p1"
+                  },
+                  "property": {
+                    "name": "component_id",
+                    "type": "string"
+                  },
+                  "type": "operator"
+                }
+              ],
+              "type": "and"
+            }
+          },
+          "sqlExpression": "SELECT SUM(component_sent_events_total) FROM tppp_v1 WHERE component_id = 'tf_sdfs_match_p1'",
+          "statistic": "Sum"
+        },
+        {
+          "datasource": {
+            "type": "__expr__",
+            "uid": "-100"
+          },
+          "expression": "$inputPattern1 - $outputPattern1",
+          "hide": false,
+          "refId": "Pattern-1",
+          "type": "math"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "000000014"
+          },
+          "dimensions": {
+            "component_id": "tf_sdfs_match_p2",
+            "component_kind": "*",
+            "component_name": "*",
+            "component_type": "filter"
+          },
+          "expression": "",
+          "hide": true,
+          "id": "",
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "component_received_events_total",
+          "metricQueryType": 1,
+          "namespace": "tppp_v1",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "inputPattern2",
+          "region": "default",
+          "sql": {
+            "from": {
+              "property": {
+                "name": "tppp_v1",
+                "type": "string"
+              },
+              "type": "property"
+            },
+            "select": {
+              "name": "SUM",
+              "parameters": [
+                {
+                  "name": "component_received_events_total",
+                  "type": "functionParameter"
+                }
+              ],
+              "type": "function"
+            },
+            "where": {
+              "expressions": [
+                {
+                  "operator": {
+                    "name": "=",
+                    "value": "tf_sdfs_match_p2"
+                  },
+                  "property": {
+                    "name": "component_id",
+                    "type": "string"
+                  },
+                  "type": "operator"
+                }
+              ],
+              "type": "and"
+            }
+          },
+          "sqlExpression": "SELECT SUM(component_received_events_total) FROM tppp_v1 WHERE component_id = 'tf_sdfs_match_p2'",
+          "statistic": "Sum"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "000000014"
+          },
+          "dimensions": {
+            "component_id": "tf_sdfs_match_p2",
+            "component_kind": "*",
+            "component_name": "*",
+            "component_type": "filter",
+            "output": "*"
+          },
+          "expression": "",
+          "hide": true,
+          "id": "",
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "component_sent_events_total",
+          "metricQueryType": 1,
+          "namespace": "tppp_v1",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "outputPattern2",
+          "region": "default",
+          "sql": {
+            "from": {
+              "property": {
+                "name": "tppp_v1",
+                "type": "string"
+              },
+              "type": "property"
+            },
+            "select": {
+              "name": "SUM",
+              "parameters": [
+                {
+                  "name": "component_sent_events_total",
+                  "type": "functionParameter"
+                }
+              ],
+              "type": "function"
+            },
+            "where": {
+              "expressions": [
+                {
+                  "operator": {
+                    "name": "=",
+                    "value": "tf_sdfs_match_p2"
+                  },
+                  "property": {
+                    "name": "component_id",
+                    "type": "string"
+                  },
+                  "type": "operator"
+                }
+              ],
+              "type": "and"
+            }
+          },
+          "sqlExpression": "SELECT SUM(component_sent_events_total) FROM tppp_v1 WHERE component_id = 'tf_sdfs_match_p2'",
+          "statistic": "Sum"
+        },
+        {
+          "datasource": {
+            "type": "__expr__",
+            "uid": "-100"
+          },
+          "expression": "$inputPattern2 - $outputPattern2",
+          "hide": false,
+          "refId": "Pattern-2",
+          "type": "math"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "000000014"
+          },
+          "dimensions": {
+            "component_id": "tf_sdfs_match_p3",
+            "component_kind": "*",
+            "component_name": "*",
+            "component_type": "filter"
+          },
+          "expression": "",
+          "hide": true,
+          "id": "",
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "component_received_events_total",
+          "metricQueryType": 1,
+          "namespace": "tppp_v1",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "inputPattern3",
+          "region": "default",
+          "sql": {
+            "from": {
+              "property": {
+                "name": "tppp_v1",
+                "type": "string"
+              },
+              "type": "property"
+            },
+            "select": {
+              "name": "SUM",
+              "parameters": [
+                {
+                  "name": "component_received_events_total",
+                  "type": "functionParameter"
+                }
+              ],
+              "type": "function"
+            },
+            "where": {
+              "expressions": [
+                {
+                  "operator": {
+                    "name": "=",
+                    "value": "tf_sdfs_match_p3"
+                  },
+                  "property": {
+                    "name": "component_id",
+                    "type": "string"
+                  },
+                  "type": "operator"
+                }
+              ],
+              "type": "and"
+            }
+          },
+          "sqlExpression": "SELECT SUM(component_received_events_total) FROM tppp_v1 WHERE component_id = 'tf_sdfs_match_p3'",
+          "statistic": "Sum"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "000000014"
+          },
+          "dimensions": {
+            "component_id": "tf_sdfs_match_p3",
+            "component_kind": "*",
+            "component_name": "*",
+            "component_type": "filter",
+            "output": "*"
+          },
+          "expression": "",
+          "hide": true,
+          "id": "",
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "component_sent_events_total",
+          "metricQueryType": 1,
+          "namespace": "tppp_v1",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "outputPattern3",
+          "region": "default",
+          "sql": {
+            "from": {
+              "property": {
+                "name": "tppp_v1",
+                "type": "string"
+              },
+              "type": "property"
+            },
+            "select": {
+              "name": "SUM",
+              "parameters": [
+                {
+                  "name": "component_sent_events_total",
+                  "type": "functionParameter"
+                }
+              ],
+              "type": "function"
+            },
+            "where": {
+              "expressions": [
+                {
+                  "operator": {
+                    "name": "=",
+                    "value": "tf_sdfs_match_p3"
+                  },
+                  "property": {
+                    "name": "component_id",
+                    "type": "string"
+                  },
+                  "type": "operator"
+                }
+              ],
+              "type": "and"
+            }
+          },
+          "sqlExpression": "SELECT SUM(component_sent_events_total) FROM tppp_v1 WHERE component_id = 'tf_sdfs_match_p3'",
+          "statistic": "Sum"
+        },
+        {
+          "datasource": {
+            "type": "__expr__",
+            "uid": "-100"
+          },
+          "expression": "$inputPattern3 - $outputPattern3",
+          "hide": false,
+          "refId": "Pattern-3",
+          "type": "math"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "000000014"
+          },
+          "dimensions": {
+            "component_id": "tf_sdfs_match_p4",
+            "component_kind": "*",
+            "component_name": "*",
+            "component_type": "filter"
+          },
+          "expression": "",
+          "hide": true,
+          "id": "",
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "component_received_events_total",
+          "metricQueryType": 1,
+          "namespace": "tppp_v1",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "inputPattern4",
+          "region": "default",
+          "sql": {
+            "from": {
+              "property": {
+                "name": "tppp_v1",
+                "type": "string"
+              },
+              "type": "property"
+            },
+            "select": {
+              "name": "SUM",
+              "parameters": [
+                {
+                  "name": "component_received_events_total",
+                  "type": "functionParameter"
+                }
+              ],
+              "type": "function"
+            },
+            "where": {
+              "expressions": [
+                {
+                  "operator": {
+                    "name": "=",
+                    "value": "tf_sdfs_match_p4"
+                  },
+                  "property": {
+                    "name": "component_id",
+                    "type": "string"
+                  },
+                  "type": "operator"
+                }
+              ],
+              "type": "and"
+            }
+          },
+          "sqlExpression": "SELECT SUM(component_received_events_total) FROM tppp_v1 WHERE component_id = 'tf_sdfs_match_p4'",
+          "statistic": "Sum"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "000000014"
+          },
+          "dimensions": {
+            "component_id": "tf_sdfs_match_p4",
+            "component_kind": "*",
+            "component_name": "*",
+            "component_type": "filter",
+            "output": "*"
+          },
+          "expression": "",
+          "hide": true,
+          "id": "",
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "component_sent_events_total",
+          "metricQueryType": 1,
+          "namespace": "tppp_v1",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "outputPattern4",
+          "region": "default",
+          "sql": {
+            "from": {
+              "property": {
+                "name": "tppp_v1",
+                "type": "string"
+              },
+              "type": "property"
+            },
+            "select": {
+              "name": "SUM",
+              "parameters": [
+                {
+                  "name": "component_sent_events_total",
+                  "type": "functionParameter"
+                }
+              ],
+              "type": "function"
+            },
+            "where": {
+              "expressions": [
+                {
+                  "operator": {
+                    "name": "=",
+                    "value": "tf_sdfs_match_p4"
+                  },
+                  "property": {
+                    "name": "component_id",
+                    "type": "string"
+                  },
+                  "type": "operator"
+                }
+              ],
+              "type": "and"
+            }
+          },
+          "sqlExpression": "SELECT SUM(component_sent_events_total) FROM tppp_v1 WHERE component_id = 'tf_sdfs_match_p4'",
+          "statistic": "Maximum"
+        },
+        {
+          "datasource": {
+            "type": "__expr__",
+            "uid": "-100"
+          },
+          "expression": "$inputPattern4 - $outputPattern4",
+          "hide": false,
+          "refId": "Pattern-4",
+          "type": "math"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "000000014"
+          },
+          "dimensions": {
+            "component_id": "tf_sdfs_match_p5",
+            "component_kind": "*",
+            "component_name": "*",
+            "component_type": "filter"
+          },
+          "expression": "",
+          "hide": true,
+          "id": "",
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "component_received_events_total",
+          "metricQueryType": 1,
+          "namespace": "tppp_v1",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "inputPattern5",
+          "region": "default",
+          "sql": {
+            "from": {
+              "property": {
+                "name": "tppp_v1",
+                "type": "string"
+              },
+              "type": "property"
+            },
+            "select": {
+              "name": "SUM",
+              "parameters": [
+                {
+                  "name": "component_received_events_total",
+                  "type": "functionParameter"
+                }
+              ],
+              "type": "function"
+            },
+            "where": {
+              "expressions": [
+                {
+                  "operator": {
+                    "name": "=",
+                    "value": "tf_sdfs_match_p5"
+                  },
+                  "property": {
+                    "name": "component_id",
+                    "type": "string"
+                  },
+                  "type": "operator"
+                }
+              ],
+              "type": "and"
+            }
+          },
+          "sqlExpression": "SELECT SUM(component_received_events_total) FROM tppp_v1 WHERE component_id = 'tf_sdfs_match_p5'",
+          "statistic": "Sum"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "000000014"
+          },
+          "dimensions": {
+            "component_id": "tf_sdfs_match_p5",
+            "component_kind": "*",
+            "component_name": "*",
+            "component_type": "filter",
+            "output": "*"
+          },
+          "expression": "",
+          "hide": true,
+          "id": "",
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "component_sent_events_total",
+          "metricQueryType": 1,
+          "namespace": "tppp_v1",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "outputPattern5",
+          "region": "default",
+          "sql": {
+            "from": {
+              "property": {
+                "name": "tppp_v1",
+                "type": "string"
+              },
+              "type": "property"
+            },
+            "select": {
+              "name": "SUM",
+              "parameters": [
+                {
+                  "name": "component_sent_events_total",
+                  "type": "functionParameter"
+                }
+              ],
+              "type": "function"
+            },
+            "where": {
+              "expressions": [
+                {
+                  "operator": {
+                    "name": "=",
+                    "value": "tf_sdfs_match_p5"
+                  },
+                  "property": {
+                    "name": "component_id",
+                    "type": "string"
+                  },
+                  "type": "operator"
+                }
+              ],
+              "type": "and"
+            }
+          },
+          "sqlExpression": "SELECT SUM(component_sent_events_total) FROM tppp_v1 WHERE component_id = 'tf_sdfs_match_p5'",
+          "statistic": "Sum"
+        },
+        {
+          "datasource": {
+            "type": "__expr__",
+            "uid": "-100"
+          },
+          "expression": "$inputPattern5 - $outputPattern5",
+          "hide": false,
+          "refId": "Pattern-5",
+          "type": "math"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "000000014"
+          },
+          "dimensions": {
+            "component_id": "tf_sdfs_match_final",
+            "component_kind": "*",
+            "component_name": "*",
+            "component_type": "filter"
+          },
+          "expression": "",
+          "hide": true,
+          "id": "",
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "component_received_events_total",
+          "metricQueryType": 1,
+          "namespace": "tppp_v1",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "inputPattern6",
+          "region": "default",
+          "sql": {
+            "from": {
+              "property": {
+                "name": "tppp_v1",
+                "type": "string"
+              },
+              "type": "property"
+            },
+            "select": {
+              "name": "SUM",
+              "parameters": [
+                {
+                  "name": "component_received_events_total",
+                  "type": "functionParameter"
+                }
+              ],
+              "type": "function"
+            },
+            "where": {
+              "expressions": [
+                {
+                  "operator": {
+                    "name": "=",
+                    "value": "tf_sdfs_match_final"
+                  },
+                  "property": {
+                    "name": "component_id",
+                    "type": "string"
+                  },
+                  "type": "operator"
+                }
+              ],
+              "type": "and"
+            }
+          },
+          "sqlExpression": "SELECT SUM(component_received_events_total) FROM tppp_v1 WHERE component_id = 'tf_sdfs_match_final'",
+          "statistic": "Sum"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "000000014"
+          },
+          "dimensions": {
+            "component_id": "tf_sdfs_match_final",
+            "component_kind": "*",
+            "component_name": "*",
+            "component_type": "filter",
+            "output": "*"
+          },
+          "expression": "",
+          "hide": true,
+          "id": "",
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "component_sent_events_total",
+          "metricQueryType": 1,
+          "namespace": "tppp_v1",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "outputPattern6",
+          "region": "default",
+          "sql": {
+            "from": {
+              "property": {
+                "name": "tppp_v1",
+                "type": "string"
+              },
+              "type": "property"
+            },
+            "select": {
+              "name": "SUM",
+              "parameters": [
+                {
+                  "name": "component_sent_events_total",
+                  "type": "functionParameter"
+                }
+              ],
+              "type": "function"
+            },
+            "where": {
+              "expressions": [
+                {
+                  "operator": {
+                    "name": "=",
+                    "value": "tf_sdfs_match_final"
+                  },
+                  "property": {
+                    "name": "component_id",
+                    "type": "string"
+                  },
+                  "type": "operator"
+                }
+              ],
+              "type": "and"
+            }
+          },
+          "sqlExpression": "SELECT SUM(component_sent_events_total) FROM tppp_v1 WHERE component_id = 'tf_sdfs_match_final'",
+          "statistic": "Sum"
+        },
+        {
+          "datasource": {
+            "type": "__expr__",
+            "uid": "__expr__"
+          },
+          "expression": "$inputPattern6 - $outputPattern6",
+          "hide": false,
+          "refId": "Pattern-6",
+          "type": "math"
+        }
+      ],
+      "title": "Pattern Performance",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 11
+      },
+      "id": 23,
+      "panels": [],
+      "title": "Pipeline-Health",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "000000014"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 6,
+        "x": 0,
+        "y": 12
+      },
+      "id": 13,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "Avg. ES-Buffer",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "000000014"
+          },
+          "dimensions": {
+            "buffer_type": "*",
+            "component_id": "es_out_livelogs",
+            "component_kind": "sink",
+            "component_name": "*",
+            "component_type": "*",
+            "host": "*",
+            "pid": "*",
+            "stage": "*"
+          },
+          "expression": "",
+          "hide": false,
+          "id": "",
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "buffer_events",
+          "metricQueryType": 1,
+          "namespace": "tppp_v1",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "ES-Buffer",
+          "region": "default",
+          "sql": {
+            "from": {
+              "property": {
+                "name": "tppp_v1",
+                "type": "string"
+              },
+              "type": "property"
+            },
+            "select": {
+              "name": "AVG",
+              "parameters": [
+                {
+                  "name": "buffer_events",
+                  "type": "functionParameter"
+                }
+              ],
+              "type": "function"
+            },
+            "where": {
+              "expressions": [
+                {
+                  "operator": {
+                    "name": "=",
+                    "value": "es_out_livelogs"
+                  },
+                  "property": {
+                    "name": "component_id",
+                    "type": "string"
+                  },
+                  "type": "operator"
+                },
+                {
+                  "operator": {
+                    "name": "=",
+                    "value": "sink"
+                  },
+                  "property": {
+                    "name": "component_kind",
+                    "type": "string"
+                  },
+                  "type": "operator"
+                },
+                {
+                  "operator": {
+                    "name": "=",
+                    "value": "memory"
+                  },
+                  "property": {
+                    "name": "buffer_type",
+                    "type": "string"
+                  },
+                  "type": "operator"
+                }
+              ],
+              "type": "and"
+            }
+          },
+          "sqlExpression": "SELECT AVG(buffer_events) FROM tppp_v1 WHERE component_id = 'es_out_livelogs' AND component_kind = 'sink' AND buffer_type = 'memory'",
+          "statistic": "Maximum"
+        }
+      ],
+      "title": "Output Buffer Avg.",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "000000014"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 6,
+        "x": 6,
+        "y": 12
+      },
+      "id": 6,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "000000014"
+          },
+          "dimensions": {
+            "buffer_type": "*",
+            "component_id": "es_out_livelogs",
+            "component_kind": "sink",
+            "component_name": "*",
+            "component_type": "*",
+            "host": "*",
+            "pid": "*",
+            "stage": "*"
+          },
+          "expression": "",
+          "hide": false,
+          "id": "",
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "buffer_events",
+          "metricQueryType": 0,
+          "namespace": "tppp_v1",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "ES-Buffer",
+          "region": "default",
+          "sqlExpression": "",
+          "statistic": "Maximum"
+        }
+      ],
+      "title": "Output Buffers",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "000000014"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 12
+      },
+      "id": 15,
+      "interval": "5m",
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "SumOffsetLag",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "000000014"
+          },
+          "dimensions": {
+            "Cluster Name": "logrelay-latest-v8",
+            "Consumer Group": "livelogs-consumer",
+            "Topic": "cdm-livelogs"
+          },
+          "expression": "",
+          "id": "",
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "SumOffsetLag",
+          "metricQueryType": 0,
+          "namespace": "AWS/Kafka",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "A",
+          "region": "default",
+          "sqlExpression": "",
+          "statistic": "Average"
+        }
+      ],
+      "title": "Kafka SumOffsetLag",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 21
+      },
+      "id": 19,
+      "panels": [],
+      "title": "Resources-Utilization",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "000000014"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 3,
+        "x": 0,
+        "y": 22
+      },
+      "id": 17,
+      "interval": "1m",
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.4.4",
+      "targets": [
+        {
+          "alias": "A",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "000000014"
+          },
+          "dimensions": {},
+          "expression": "",
+          "hide": true,
+          "id": "",
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "component_received_events_total",
+          "metricQueryType": 1,
+          "namespace": "tppp_v1",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "A",
+          "region": "default",
+          "sql": {
+            "from": {
+              "property": {
+                "name": "tppp_v1",
+                "type": "string"
+              },
+              "type": "property"
+            },
+            "select": {
+              "name": "COUNT",
+              "parameters": [
+                {
+                  "name": "buffer_events",
+                  "type": "functionParameter"
+                }
+              ],
+              "type": "function"
+            },
+            "where": {
+              "expressions": [
+                {
+                  "operator": {
+                    "name": "=",
+                    "value": "es_out_livelogs"
+                  },
+                  "property": {
+                    "name": "component_id",
+                    "type": "string"
+                  },
+                  "type": "operator"
+                }
+              ],
+              "type": "and"
+            }
+          },
+          "sqlExpression": "SELECT COUNT(buffer_events) FROM tppp_v1 WHERE component_id = 'es_out_livelogs'",
+          "statistic": "Sum"
+        },
+        {
+          "datasource": {
+            "type": "__expr__",
+            "uid": "__expr__"
+          },
+          "expression": "$A / 2",
+          "hide": false,
+          "refId": "Vector",
+          "type": "math"
+        },
+        {
+          "datasource": {
+            "type": "__expr__",
+            "uid": "__expr__"
+          },
+          "expression": "$Vector / 2",
+          "hide": false,
+          "refId": "EC2",
+          "type": "math"
+        }
+      ],
+      "title": "# of Vector Instances",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "000000014"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 8,
+        "x": 3,
+        "y": 22
+      },
+      "id": 8,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "EKS-Cluster-Average-%",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "000000014"
+          },
+          "dimensions": {
+            "AutoScalingGroupName": "eks-tppp-dataplane-ng-01"
+          },
+          "expression": "",
+          "hide": false,
+          "id": "",
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "CPUUtilization",
+          "metricQueryType": 0,
+          "namespace": "AWS/EC2",
+          "period": "5m",
+          "queryMode": "Metrics",
+          "refId": "B",
+          "region": "default",
+          "sqlExpression": "",
+          "statistic": "Average"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "000000014"
+          },
+          "dimensions": {
+            "collector": "cpu",
+            "cpu": "*",
+            "host": "*",
+            "mode": "user"
+          },
+          "expression": "",
+          "hide": false,
+          "id": "",
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "cpu_seconds_total",
+          "metricQueryType": 0,
+          "namespace": "tppp_v1",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "A",
+          "region": "default",
+          "sqlExpression": "",
+          "statistic": "Sum"
+        }
+      ],
+      "title": "Host CPU Utilization",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "000000014"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 7,
+        "x": 11,
+        "y": 22
+      },
+      "id": 10,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "000000014"
+          },
+          "dimensions": {
+            "collector": "memory",
+            "host": "*"
+          },
+          "expression": "",
+          "hide": false,
+          "id": "",
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "memory_active_bytes",
+          "metricQueryType": 0,
+          "namespace": "tppp_v1",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "A",
+          "region": "default",
+          "sqlExpression": "",
+          "statistic": "Maximum"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "000000014"
+          },
+          "dimensions": {
+            "collector": "memory",
+            "host": "vector-tppp-dataplane-0"
+          },
+          "expression": "",
+          "hide": false,
+          "id": "",
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "memory_total_bytes",
+          "metricQueryType": 0,
+          "namespace": "tppp_v1",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "Total-Mem",
+          "region": "default",
+          "sqlExpression": "",
+          "statistic": "Maximum"
+        }
+      ],
+      "title": "Host Memory Utilization",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "000000014"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 6,
+        "x": 18,
+        "y": 22
+      },
+      "id": 12,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "000000014"
+          },
+          "dimensions": {
+            "collector": "network",
+            "device": "eth0",
+            "host": "*"
+          },
+          "expression": "",
+          "id": "",
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "network_receive_bytes_total",
+          "metricQueryType": 0,
+          "namespace": "tppp_v1",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "A",
+          "region": "default",
+          "sqlExpression": "",
+          "statistic": "Maximum"
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "000000014"
+          },
+          "dimensions": {
+            "collector": "network",
+            "device": "eth0",
+            "host": "*"
+          },
+          "expression": "",
+          "hide": false,
+          "id": "",
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "network_transmit_bytes_total",
+          "metricQueryType": 0,
+          "namespace": "tppp_v1",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "B",
+          "region": "default",
+          "sqlExpression": "",
+          "statistic": "Maximum"
+        }
+      ],
+      "title": "Host-Network",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 35,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-3h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "dataplane",
+  "uid": "nlh0H_P7z",
+  "version": 41,
+  "weekStart": ""
+}

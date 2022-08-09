@@ -1,0 +1,8 @@
+vector:
+  chart_version: 0.9.0
+context:
+  sandbox: <TODO-YOUR-SANDBOX-EKS-ARN>:<YOUR-SANDBOX-EKS-CLUSTER-NAME>
+  prod: <TODO-YOUR-PROD-EKS-ARN>:<YOUR-PROD-EKS-CLUSTER-NAME>
+values_file:
+  sandbox: values/values_sandbox.yaml
+  prod: values/values_prod.yaml

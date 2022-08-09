@@ -1,0 +1,13 @@
+{ "logs": [{"Severity": 3, "Class": "test_spc.cpp:47", "Version": "3", "Logger": "RMain", "Payload": "m_c Attempting to set an empty job context"},
+{"Severity": 3, "Class": "test_spc.cpp:47", "Version": "3", "Logger": "RMain", "Payload": "P_R_408fa49b-037b-4344-bb23-731b65c1f5ef:::15 Attempting to set an empty job context"},
+{"Severity": 3, "Class": "test_spc.cpp:47", "Version": "3", "Logger": "RMain", "Payload": "M_L_R@P_R_B_P_M_L_R_00fa7272-9973-4d2b-801a-2787e0639913###25606_0:::0 Attempting to set an empty job context"},
+{"Severity": 3, "Class": "test_spc.cpp:47", "Version": "3", "Logger": "RMain", "Payload": "P_R_48fd1e3e-b690-497a-9358-33aa0b81578e:::840 Attempting to set an empty job context"},
+{"Severity": 3, "Class": "testBucImpl", "Version": "2", "Logger": "Monitor", "Payload": "principalID: Some(A-B-C-D)"},
+{"Severity": 3, "Class": "testBucImpl", "Version": "2", "Logger": "Monitor", "Payload": "principalID: Some(C-D-E-F)"},
+{"Severity": 3, "Class": "testNIC", "Version": "3", "Logger": "Monitor", "Payload": "Network interface eth3 is down"},
+{"Severity": 3, "Line": 69, "Version": "3", "File": "test_t.go", "Logger": "DB", "Payload": "Failed to get time, err: server not yet initialized: time: 123, status: NOT_INITIALIZED, time cap: 125. Sleeping for 100ms before retrying."},
+{"Severity": 3, "Line": 69, "Version": "2", "File": "test_t.go", "Logger": "DB", "Payload": "Failed to get time, err: server not yet initialized: time: 456, status: NOT_INITIALIZED, time cap: 459. Sleeping for 100ms before retrying."}
+]
+}
+
+

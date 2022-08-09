@@ -1,0 +1,30 @@
+# Kafka drain3 consumer settings
+drain3_consumer:
+  kafka_brokers: 
+    "<YOUR-KAFKA-BROKER-1-URL>:<YOUR-KAFKA-BROKER-1-PORT>,
+     <YOUR-KAFKA-BROKER-2-URL>:<YOUR-KAFKA-BROKER-2-PORT>,
+     <YOUR-KAFKA-BROKER-3-URL>:<YOUR-KAFKA-BROKER-3-PORT>"
+  topic: "<YOUR-KAFKA-TOPIC-NAME>"
+  group: "<YOUR-KAFKA-CONSUMER-GROUP>"
+  consumer_name: "<YOUR-KAKFA-CONSUMER-NAME>"
+  # time interval for redis persistence
+  snapshot_interval_time: 1 # unit minutes
+  # time interval for drain3 state reset
+  reset_interval_time: 10080 #1 week(unit minutes)
+  # reset and training period checks are done per this value of logs 
+  batch_size: 10000
+  # training period for drain3
+  # when this ends drain3 switched to fast matching
+  training_time: 720 #12 hrs(unit minutes)
+  # sampling factor during training
+  training_sampling: 10
+  # sampling factor during inference/fast matching
+  inference_sampling: 10
+  # ECR URL
+  ecr_repo_url: "<YOUR-REPO-URL-FOR-PUSHING-LOGMINER-DOCKER-IMAGE>"
+db_config:
+  database: "<YOUR-DATABASE-NAME-FOR-LOGMINER>"
+  user: "<YOUR-DATABASE-USER-FOR-LOGMINER>"
+  password: "<YOUR-DATABASE-PASS-FOR-LOGMINER>"
+  host: "<YOUR-DATABASE-HOST-FOR-LOGMINER>"
+  port: "<YOUR-DATABASE-PORT-FOR-LOGMINER>"

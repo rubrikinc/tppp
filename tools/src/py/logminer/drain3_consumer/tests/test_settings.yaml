@@ -1,0 +1,29 @@
+# Kafka drain3 consumer settings
+drain3_consumer:
+  kafka_brokers: "kafka:9092"
+  topic: "cdm-livelogs"
+  group: "drain3_consumers_group"
+  topic_partitions: 1
+  batch_size: 1
+  training_time: 2
+
+
+#redis settings
+redis:
+  host: "redis"
+  port: 6379
+  db: 0
+  pass: ""
+  ttl: 900
+
+# Settings for generating test logs and writing to kafka
+drain3_test_producer:
+  kafka_brokers: ["kafka:9092"]
+  topic: "cdm-livelogs"
+  # We map the node-id to partition by using node%num_partitions
+  # Note the num_partitions must match the value used to create the topic
+  num_partitions: 1
+  num_nodes: 4
+
+
+

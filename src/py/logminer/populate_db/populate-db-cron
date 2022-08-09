@@ -1,0 +1,1 @@
+0 0 * * * python3 /logminer/populate_db/populate_db.py >> /var/log/cron.log 2>&1
